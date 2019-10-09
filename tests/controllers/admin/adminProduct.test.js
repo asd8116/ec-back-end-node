@@ -74,6 +74,23 @@ describe('#Admin Product', () => {
     })
 
     it('successfully create', done => {
+      let file = { path: 'test' }
+
+      request(app)
+        .post('/api/admin/products')
+        .send(file, { name: 'product7' })
+        // .set('Accept', 'application/json')
+        .set('Accept', 'multipart/form-data')
+        // .field('Content-Type', 'multipart/form-data')
+        .expect(200)
+        .end(function(err, res) {
+          if (err) return done(err)
+          expect(res.body.status).to.be.equal('success')
+          done()
+        })
+    })
+
+    it('successfully create', done => {
       request(app)
         .post('/api/admin/products')
         .send('name=product1')
